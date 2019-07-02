@@ -7,7 +7,7 @@ const app = require('./app')
 // const express = require('express')
 
 //server setup
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const server = http.createServer(app);
 

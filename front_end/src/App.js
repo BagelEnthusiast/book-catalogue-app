@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import './App.css';
+import NavBar from './NavBar'
+import { BrowserRouter, Route} from 'react-router-dom'
+import HomePageContainer from './pageContainers/HomePageContainer'
+import MyBooksPageContainer from './pageContainers/MyBooksPageContainer'
+import ProfilePageContainer from './pageContainers/ProfilePageContainer'
+import LoginPageContainer from './pageContainers/LoginPageContainer'
 
 const API = "https://www.googleapis.com/books/v1/volumes/?q=harry_potter_chamber_of_secrets"
 
@@ -10,6 +15,18 @@ class App extends Component {
     this.state = {
       currentBook: ""
     }
+  }
+
+  createUser = (username, password) => {
+    fetch('http://localhost:4000/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: username, password: password, reviews: []
+      })
+    })
   }
 
   addBook = () => {
@@ -35,12 +52,17 @@ class App extends Component {
   }
 
   render() {
-  return (
-    <div>
-      <img src={this.state.currentBook} alt=""/>
-      <button onClick={this.addBook}>Add Book</button>
-    </div>
-  );
+    return (
+      <BrowserRouter>
+        <div className="App">
+          <NavBar/>
+          <Route exact path='/' component={HomePageContainer}/>
+          <Route path='/mybooks' component={MyBooksPageContainer}/>
+          <Route path='/profile' component={ProfilePageContainer}/>
+          <Route path='/login' component={LoginPageContainer}/>
+        </div>
+      </BrowserRouter>
+    );
   }
 }
 
