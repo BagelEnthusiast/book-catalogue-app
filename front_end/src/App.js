@@ -46,8 +46,8 @@ class App extends Component {
     fetch(API)
     .then(res => res.json())
     .then(data => {
-       console.log(data.items[0].volumeInfo.title)
-       console.log(data.items.map(book => book.volumeInfo))
+      //  console.log(data.items[0].volumeInfo.title)
+      //  console.log(data.items.map(book => book.volumeInfo))
     })
   }
 
