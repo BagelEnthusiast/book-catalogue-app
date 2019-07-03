@@ -12,9 +12,32 @@ class MyBooksPageContainer extends React.Component {
             showPopup: false,
             option1: "",
             option2: "",
-            option3: ""
+            option3: "",
+            displayBooks: [],
+            currentUser: ""
         }
     }
+
+    componentDidMount() {
+        fetch('http://localhost:4000/books')
+        .then(res => res.json())
+        .then(data => {
+
+            console.log(data)
+            let newData = data.filter((book) => book.username === "nathan")
+            console.log(newData)
+            this.setState({
+                displayBooks: newData
+            })
+        })
+    }
+
+    login = (e) => {
+        
+       
+    
+    }
+    
 
     addBook = (book) => {
         
@@ -36,9 +59,6 @@ class MyBooksPageContainer extends React.Component {
     }
 
     searchBooks = (text) => {
-
-        
-        console.log(text)
         fetch(`https://www.googleapis.com/books/v1/volumes/?q=${text}`)
         .then(res => res.json())
         .then(data => {
@@ -62,7 +82,7 @@ class MyBooksPageContainer extends React.Component {
                 option3={this.state.option3}
                 onAddBook={this.addBook}
                 /> : null}
-                <MyBooksContainer/>
+                <MyBooksContainer displayBooks={this.state.displayBooks}/>
             </div>
         ) 
     }
