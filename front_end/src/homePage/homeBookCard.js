@@ -23,11 +23,11 @@ class HomeBookCard extends Component {
                            
                         </div>
                         <div className="card-content">
-                        <span>{this.props.book.author}</span>
+                        <span>{this.props.book.volumeInfo.authors[0]}</span>
                         </div>
                         <div className="card-reveal">
-                            <span className="card-title grey-text text-darken-4">{this.props.book.title}<i className="fas fa-times" style={{float: "right"}}></i></span>
-                            <p>{this.props.book.author}</p>
+                            <span className="card-title grey-text text-darken-4">{this.props.book.volumeInfo.title}<i className="fas fa-times" style={{float: "right"}}></i></span>
+                            <p>{this.props.book.volumeInfo.authors[0]}</p>
                             <p>Current Page: {this.props.book.currentPage}</p>
                             <p>Rating: {this.props.book.rating}</p>
                         </div>
