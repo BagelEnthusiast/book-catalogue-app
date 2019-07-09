@@ -29,6 +29,11 @@ class MyBooksPageContainer extends React.Component {
         })
     }
     
+    closePopup = () => {
+        this.setState({
+            showPopup: false
+        })
+    }
 
     addBook = (book) => {
         let id = localStorage.getItem("userId")
@@ -100,6 +105,7 @@ class MyBooksPageContainer extends React.Component {
                 option2={this.state.option2}
                 option3={this.state.option3}
                 onAddBook={this.addBook}
+                onClose={this.closePopup}
                 /> : null}
                 <MyBooksContainer displayBooks={this.state.displayBooks} onDelete={this.deleteBook}/>
             </div>
