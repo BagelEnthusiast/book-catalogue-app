@@ -83,6 +83,11 @@ class MyBooksPageContainer extends React.Component {
     }
 
     searchBooks = (text) => {
+        
+        if (text === "") {
+            return
+        }
+
         fetch(`https://www.googleapis.com/books/v1/volumes/?q=${text}`)
         .then(res => res.json())
         .then(data => {

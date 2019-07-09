@@ -24,7 +24,7 @@ class SearchBar extends Component {
         <div>
             <form onSubmit={(e) => {e.preventDefault(); this.props.onSearch(this.state.searchInput)}}>
                 <input onChange={(e) => this.updateInput(e.target.value)} type="text" placeholder="Search for a Book.."/>
-                <button className="btn waves-effect waves-light" type="submit"><i class="fas fa-search"></i></button>
+                <button className="btn waves-effect waves-light" type="submit"><i className="fas fa-search"></i></button>
             </form>
         </div>
         )
