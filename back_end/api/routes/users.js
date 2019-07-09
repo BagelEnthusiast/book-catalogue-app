@@ -24,7 +24,8 @@ router.post('/', (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         username: req.body.username,
         password: req.body.password,
-        reviews: req.body.reviews
+        reviews: req.body.reviews,
+        books: req.body.books
     });
     user.save().then(result => {
         console.log(result);

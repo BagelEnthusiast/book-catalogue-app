@@ -17,30 +17,30 @@ class App extends Component {
     }
   }
 
-  createUser = (username, password) => {
-    fetch('http://localhost:4000/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username, password: password, reviews: []
-      })
-    })
-  }
+  // createUser = (username, password) => {
+  //   fetch('http://localhost:4000/users', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       username: username, password: password, reviews: []
+  //     })
+  //   })
+  // }
 
-  addBook = () => {
-    fetch(API)
-    .then(res => res.json())
-    .then(data => {
-      let newImg = data.items[0].volumeInfo.imageLinks.thumbnail.replace("zoom=1", "zoom=0")
-      this.setState({
-        currentBook: newImg
-      })
-    })
-    console.log(this.state.currentBook)
+  // addBook = () => {
+  //   fetch(API)
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     let newImg = data.items[0].volumeInfo.imageLinks.thumbnail.replace("zoom=1", "zoom=0")
+  //     this.setState({
+  //       currentBook: newImg
+  //     })
+  //   })
+  //   console.log(this.state.currentBook)
     
-  }
+  // }
 
   componentDidMount(){
     fetch(API)

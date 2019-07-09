@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Book = require('../models/book');
+const User = require('../models/user');
 
 router.get('/', (req, res, next) => {
     Book.find()
@@ -25,8 +26,25 @@ router.post('/', (req, res, next) => {
         title: req.body.title,
         author: req.body.author,
         img_url: req.body.img_url,
-        username: req.body.username
+        username: req.body.username,
+        userId: req.body.userId,
+        currentPage: req.body.currentPage,
+        rating: req.body.rating
     });
+    //add update user here
+    // let user = User.findById(req.body.userId)
+    
+    // const updateOps = {
+    //     title: req.body.title,
+    //     author: req.body.author,
+    //     img_url: req.body.img_url
+    // }
+    // let newBooks = [...user.books, updateOps]
+    // // for (const key in req.body) {
+    // //     updateOps[key] = req.body[key]
+    // // }
+    // User.updateOne({_id: req.body.userId}, { $set: {updateOps}})
+
     book.save().then(result => {
         console.log(result);
         res.status(201).json({
@@ -45,6 +63,8 @@ router.post('/', (req, res, next) => {
 })
 
 router.get('/:bookId', (req, res, next) => {
+    
+   
     const id = req.params.bookId;
     Book.findById(id)
         // .exec()
@@ -83,7 +103,9 @@ router.patch('/:bookId', (req, res, next) => {
 })
 
 router.delete('/:bookId', (req, res, next) => {
+    
     const id = req.params.bookId;
+    console.log(id)
     Book.deleteOne({_id: id})
     .exec()
     .then(result => {

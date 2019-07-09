@@ -12,7 +12,9 @@ class LoginPageContainer extends React.Component {
             let u = users.find(user => user.username === uName && user.password === pw)
             if (u !== undefined) {
                 localStorage.setItem("currentUser", uName)
+                localStorage.setItem("userId", u._id)
                 window.location.replace("/mybooks")
+                
             } else {
                 alert("Invalid Username or Password")
             }
@@ -21,8 +23,6 @@ class LoginPageContainer extends React.Component {
         // console.log(localStorage.getItem("currentUser"))
         })
        
-        
-
     }
 
     render() {

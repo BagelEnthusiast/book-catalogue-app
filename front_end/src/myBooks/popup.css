@@ -1,0 +1,9 @@
+#myModal {
+    z-index: 1
+}
+.collection-item{
+    cursor: pointer;
+}
+.collection-item:hover {
+    background-color: #008B8B
+}

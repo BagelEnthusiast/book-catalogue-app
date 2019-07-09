@@ -22,25 +22,16 @@ class MyBooksPageContainer extends React.Component {
         fetch('http://localhost:4000/books')
         .then(res => res.json())
         .then(data => {
-
-            console.log(data)
-            let newData = data.filter((book) => book.username === "nathan")
-            console.log(newData)
+            let newData = data.filter((book) => book.username === localStorage.getItem("currentUser"))
             this.setState({
                 displayBooks: newData
             })
         })
     }
-
-    login = (e) => {
-        
-       
-    
-    }
     
 
     addBook = (book) => {
-        
+        let id = localStorage.getItem("userId")
         let t = book.volumeInfo.title;
         let a = book.volumeInfo.authors[0];
         let i = book.volumeInfo.imageLinks.thumbnail.replace("zoom=1", "zoom=0");
@@ -53,7 +44,35 @@ class MyBooksPageContainer extends React.Component {
                 title: t,
                 author: a,
                 img_url: i,
-                username: "nathan"
+                username: localStorage.getItem("currentUser"),
+                userId: id,
+                currentPage: 1,
+                rating: 0
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+                displayBooks: this.state.displayBooks.concat(data.createdBook),
+                showPopup: false
+            })
+        })
+    }
+
+    deleteBook = (book) => {
+        
+        fetch(`http://localhost:4000/books/${book._id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            let newList = this.state.displayBooks.filter(b => book._id !== b._id)
+            console.log(data)
+            this.setState({
+                displayBooks: newList
             })
         })
     }
@@ -82,7 +101,7 @@ class MyBooksPageContainer extends React.Component {
                 option3={this.state.option3}
                 onAddBook={this.addBook}
                 /> : null}
-                <MyBooksContainer displayBooks={this.state.displayBooks}/>
+                <MyBooksContainer displayBooks={this.state.displayBooks} onDelete={this.deleteBook}/>
             </div>
         ) 
     }

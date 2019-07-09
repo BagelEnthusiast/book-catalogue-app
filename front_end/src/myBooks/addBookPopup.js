@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import './popup.css';
 
 
 class AddBookPopup extends Component {
@@ -29,8 +29,8 @@ class AddBookPopup extends Component {
                     <h4>Choose the correct match</h4>
                      <ul className="collection">
                         <li onClick={() => this.props.onAddBook(this.props.option1)} className="collection-item">{`${this.props.option1.volumeInfo.title} by ${this.props.option1.volumeInfo.authors[0]}`}</li>
-                        <li className="collection-item">{`${this.props.option2.volumeInfo.title} by ${this.props.option2.volumeInfo.authors[0]}`}</li>
-                        <li className="collection-item">{`${this.props.option3.volumeInfo.title} by ${this.props.option3.volumeInfo.authors[0]}`}</li>
+                        <li onClick={() => this.props.onAddBook(this.props.option2)} className="collection-item">{`${this.props.option2.volumeInfo.title} by ${this.props.option2.volumeInfo.authors[0]}`}</li>
+                        <li onClick={() => this.props.onAddBook(this.props.option3)} className="collection-item">{`${this.props.option3.volumeInfo.title} by ${this.props.option3.volumeInfo.authors[0]}`}</li>
                      
                     </ul>
                 </div>

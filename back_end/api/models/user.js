@@ -7,6 +7,11 @@ const userSchema = mongoose.Schema({
     reviews: [{
         text: String,
         bookTitle: String
+    }],
+    books: [{
+        title: String,
+        author: String,
+        img_url: String
     }]
     
 })

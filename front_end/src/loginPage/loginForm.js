@@ -9,7 +9,9 @@ class LoginForm extends React.Component {
       <Container>
         <div id="login-form">
           <h3>Login</h3>
-          <Form onSubmit={(e) => {e.preventDefault(); this.props.login(e.target.children[0].children[0].value, e.target.children[0].children[1].value)}} className="mb-3" size="lg">
+          <Form onSubmit={(e) => {e.preventDefault(); this.props.login(e.target.children[0].children[0].value,
+             e.target.children[0].children[1].value
+             )}} className="mb-3" size="lg">
             <Form.Group>
               <FormControl id="login-username-input" sz="lg" placeholder="Enter Username"/>
               <FormControl type="password" id="login-password-input" placeholder="Enter Password"/>
