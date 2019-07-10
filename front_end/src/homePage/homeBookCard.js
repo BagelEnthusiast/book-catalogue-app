@@ -7,7 +7,7 @@ class HomeBookCard extends Component {
 
 
     render() {
-        
+        console.log(this.props.book.volumeInfo.imageLinks.thumbnail)
         
         return(
             

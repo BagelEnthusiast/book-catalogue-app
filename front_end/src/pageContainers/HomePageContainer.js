@@ -43,12 +43,12 @@ class HomePageContainer extends React.Component {
             this.recommendedTitles = preview
             for (let index = 0; index < 3; index++) {
                 
-                fetch(`https://www.googleapis.com/books/v1/volumes/?q=${this.recommendedTitles[index]}`)
+                fetch(`https://www.googleapis.com/books/v1/volumes/?q=${this.recommendedTitles[index]}&key=AIzaSyDGuZDyQ8yrKmix3doGG7lCNXZKMcFEZys`)
                 .then(res => res.json())
                 .then(data => {
-                    
+                    let newData = data.items.filter(book => book.volumeInfo.imageLinks !== undefined)
                     this.setState({
-                        recommendedBooks: this.state.recommendedBooks.concat(data.items[0])
+                        recommendedBooks: this.state.recommendedBooks.concat(newData[0])
                     })
                 })
             }

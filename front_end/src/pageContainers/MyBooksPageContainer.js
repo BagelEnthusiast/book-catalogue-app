@@ -88,14 +88,16 @@ class MyBooksPageContainer extends React.Component {
             return
         }
 
-        fetch(`https://www.googleapis.com/books/v1/volumes/?q=${text}`)
+        fetch(`https://www.googleapis.com/books/v1/volumes/?q=${text}&key=AIzaSyDGuZDyQ8yrKmix3doGG7lCNXZKMcFEZys`)
         .then(res => res.json())
         .then(data => {
+            
+            let newData = data.items.filter(book => book.volumeInfo.imageLinks !== undefined)
             this.setState({
                 showPopup: true,
-                option1: data.items[0],
-                option2: data.items[1],
-                option3: data.items[2]
+                option1: newData[0],
+                option2: newData[1],
+                option3: newData[2]
             })
         })
     }
