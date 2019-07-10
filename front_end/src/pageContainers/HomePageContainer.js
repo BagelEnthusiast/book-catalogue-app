@@ -9,14 +9,12 @@ class HomePageContainer extends React.Component {
 
     constructor() {
         super()
-        this.authorRecommendedTitles = [""]
         this.recommendedTitles = [""]
         this.currentBook = ""
         this.currentAuthor = ""
         this.state = {
             authorBooks: [],
-            recommendedBooks: [],
-            authorRecommendedBooks: []
+            recommendedBooks: []
         }
     }
 
@@ -29,9 +27,7 @@ class HomePageContainer extends React.Component {
             let randomBook = newData[Math.floor(Math.random()*newData.length)]
             console.log(randomBook)
                 this.currentBook = randomBook.title
-
-                // let secondBook = newData[Math.floor(Math.random()*newData.length)]
-                // this.currentAuthor = secondBook.author
+                this.currentAuthor = randomBook.author
             
             console.log(`random book: ${randomBook.title}`)
 
@@ -39,7 +35,6 @@ class HomePageContainer extends React.Component {
         {headers: {
             'Content-Type': 'application/json'
         }})
-       
         .then(res => res.json())
         .then(data => {
             let newData = _.shuffle(data.Similar.Results)
@@ -59,33 +54,32 @@ class HomePageContainer extends React.Component {
             }
            
         })
-        //  fetch(`https://tastedive.com/api/similar?q=${this.currentAuthor}&type=books&k=339195-BookFind-HBB102QQ`, 
-        // {headers: {
-        //     'Content-Type': 'application/json'
-        // }})
-        // .then(res => res.json())
-        // .then(data => {
-        //     let newData = _.shuffle(data.Similar.Results)
-        //     //let newData = data.Similar.Results.slice(0,3).map(book => book.Name)
-        //     let preview = newData.slice(0,3).map(book => book.Name)
-        //     this.authorRecommendedTitles = preview
-        //     for (let index = 0; index < 3; index++) {
-                
-        //         fetch(`https://www.googleapis.com/books/v1/volumes/?q=${this.authorRecommendedTitles[index]}`)
-        //         .then(res => res.json())
-        //         .then(data => {
-                    
-        //             this.setState({
-        //                 authorRecommendedBooks: this.state.authorRecommendedBooks.concat(data.items[0])
-        //             })
-        //         })
-        //     }
-           
-        // })
         })
 
     
 
+        
+        
+        // .then(fetch(`https://www.googleapis.com/books/v1/volumes/?q=${this.recommendedTitles[1]}`)
+        // .then(res => res.json())
+        // .then(data => {
+        //     console.log("----------")
+        //     console.log(data.items[0])
+        //     this.setState({
+        //         recommendedBooks: this.state.recommendedBooks.concat(data.items[0])
+        //     })
+        // })
+        // )
+        // .then(fetch(`https://www.googleapis.com/books/v1/volumes/?q=${this.recommendedTitles[2]}`)
+        // .then(res => res.json())
+        // .then(data => {
+        //     console.log("----------")
+        //     console.log(data.items[0])
+        //     this.setState({
+        //         recommendedBooks: this.state.recommendedBooks.concat(data.items[0])
+        //     })
+        // })
+        // )
         
     }
 
@@ -99,8 +93,7 @@ class HomePageContainer extends React.Component {
                 
             </div>
             
-            {/* <h4>More from authors like {this.currentAuthor}:</h4> */}
-            {/* <RecommendedList books={this.state.authorRecommendedBooks}/> */}
+            <h4>More from authors like {this.currentAuthor}:</h4>
             </div>
 
             
