@@ -1,9 +1,12 @@
+const pry = require('pryjs')
+
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
 const Book = require('../models/book');
 const User = require('../models/user');
+
 
 router.get('/', (req, res, next) => {
     Book.find()
@@ -82,11 +85,12 @@ router.get('/:bookId', (req, res, next) => {
 
 router.patch('/:bookId', (req, res, next) => {
    const id = req.params.bookId
-   const updateOps = {};
-   for (const ops of req.body) {
-       updateOps[ops.propName] = ops.value
-   }
-    Book.updateOne({_id: id}, { $set: updateOps
+//    const updateOps = {};
+// //    eval(pry.it)
+//    for (const ops in req.body) {
+//        updateOps[ops] = req.body[ops]
+//    }
+    Book.updateOne({_id: id}, { $set: req.body
        
     })
     .exec()

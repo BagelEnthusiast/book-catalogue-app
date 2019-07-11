@@ -1,6 +1,6 @@
 import React from 'react';
 import RecommendedList from '../homePage/RecommendedList'
-import HomeBooksContainer from '../homePage/HomeBooksContainer'
+//import HomeBooksContainer from '../homePage/HomeBooksContainer'
 import _ from 'lodash'
 
 //let recommendedTitles
@@ -20,7 +20,32 @@ class HomePageContainer extends React.Component {
         }
     }
 
+    addBook = (book) => {
+        let id = localStorage.getItem("userId")
+        let t = book.volumeInfo.title;
+        let a = book.volumeInfo.authors[0];
+        let i = book.volumeInfo.imageLinks.thumbnail.replace("zoom=1", "zoom=0");
+        fetch('http://localhost:4000/books', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: t,
+                author: a,
+                img_url: i,
+                username: localStorage.getItem("currentUser"),
+                userId: id,
+                currentPage: 1,
+                rating: 0
+            })
+        })
+    }
+
     componentDidMount() {
+        if (localStorage.getItem("currentUser") === null ){
+            this.props.history.push('/login')
+        } else {
         //let recommendedTitles
         fetch('http://localhost:4000/books')
         .then(res => res.json())
@@ -82,20 +107,23 @@ class HomePageContainer extends React.Component {
 
          })
         })
+    }//end else statement
         
     }
 
     render() {
         return(
+
+            
             <div style={{display: "flex", flexDirection: 'column', alignItems: "center"}}>
             <div className="container">
                 <h4 className="center">Because you liked {this.currentBook}:</h4>
-                <RecommendedList books={this.state.recommendedBooks}/>
+                <RecommendedList books={this.state.recommendedBooks} onAddBook={this.addBook}/>
                 {/* <RecommendedList books={this.state.recommendedBooks}/> */}
                 
             </div>
             <div className = "container">
-            <h4>More from authors like {this.currentAuthor}:</h4>
+            <h4 className="center">More from authors like {this.currentAuthor}:</h4>
             <RecommendedList books={this.state.authorRecommendedBooks}/>
             </div>
             </div>

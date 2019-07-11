@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from '../myBooks/SearchBar'
 import AddBookPopup from '../myBooks/AddBookPopup'
 import MyBooksContainer from '../myBooks/MyBooksContainer'
+import MyBooksFilter from '../myBooks/MyBooksFilter'
 
 
 class MyBooksPageContainer extends React.Component {
@@ -19,6 +20,9 @@ class MyBooksPageContainer extends React.Component {
     }
 
     componentDidMount() {
+        if (localStorage.getItem("currentUser") === null ){
+            this.props.history.push('/login')
+        } else {
         fetch('http://localhost:4000/books')
         .then(res => res.json())
         .then(data => {
@@ -27,8 +31,36 @@ class MyBooksPageContainer extends React.Component {
                 displayBooks: newData
             })
         })
+        }//end else statement
     }
     
+    rateBook = (id, number) => {
+        
+        fetch(`http://localhost:4000/books/${id}`, {
+            method: 'PATCH', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                rating: number
+            })
+        }).then(res => res.json() )
+        .then(data => {
+            
+            if (data.ok) {
+                
+                let newBook = this.state.displayBooks.find(b => b._id === id)
+                let i = this.state.displayBooks.indexOf(newBook)
+                this.state.displayBooks[i].rating = number
+                let newArr = this.state.displayBooks
+                this.setState({
+                    displayBooks: newArr
+                })
+            }
+            //let book = data.filter(book => book._id === )
+        })
+    }
+
     closePopup = () => {
         this.setState({
             showPopup: false
@@ -114,7 +146,8 @@ class MyBooksPageContainer extends React.Component {
                 onAddBook={this.addBook}
                 onClose={this.closePopup}
                 /> : null}
-                <MyBooksContainer displayBooks={this.state.displayBooks} onDelete={this.deleteBook}/>
+                <MyBooksFilter/>
+                <MyBooksContainer displayBooks={this.state.displayBooks} onDelete={this.deleteBook} onRate={this.rateBook}/>
             </div>
         ) 
     }
