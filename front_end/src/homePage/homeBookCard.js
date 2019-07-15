@@ -27,9 +27,8 @@ class HomeBookCard extends Component {
                         </div>
                         <div className="card-reveal">
                             <span className="card-title grey-text text-darken-4">{this.props.book.volumeInfo.title}<i className="fas fa-times" style={{float: "right"}}></i></span>
-                            <p>{this.props.book.volumeInfo.authors ? this.props.book.volumeInfo.authors[0] : null}</p>
-                            <p>Current Page: {this.props.book.currentPage}</p>
-                            <p>Rating: {this.props.book.rating}</p>
+                            <p style={{fontWeight: "bold"}}>{this.props.book.volumeInfo.authors ? this.props.book.volumeInfo.authors[0] : null}</p>
+                            <p>{this.props.book.volumeInfo.description ? this.props.book.volumeInfo.description : null}</p>
                         </div>
                     </div>
                 </div>

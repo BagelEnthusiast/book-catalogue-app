@@ -68,6 +68,11 @@ class MyBooksPageContainer extends React.Component {
     }
 
     addBook = (book) => {
+        // debugger
+        // if(this.state.displayBooks.includes(book)) {
+        //     return
+        // }
+
         let id = localStorage.getItem("userId")
         let t = book.volumeInfo.title;
         let a = book.volumeInfo.authors[0];
@@ -89,6 +94,10 @@ class MyBooksPageContainer extends React.Component {
         })
         .then(res => res.json())
         .then(data => {
+            // debugger
+            // if (data === {}){
+            //     return  
+            // }
             this.setState({
                 displayBooks: this.state.displayBooks.concat(data.createdBook),
                 showPopup: false
@@ -107,7 +116,7 @@ class MyBooksPageContainer extends React.Component {
         .then(res => res.json())
         .then(data => {
             let newList = this.state.displayBooks.filter(b => book._id !== b._id)
-            console.log(data)
+            
             this.setState({
                 displayBooks: newList
             })
@@ -134,6 +143,35 @@ class MyBooksPageContainer extends React.Component {
         })
     }
 
+    searchMyBooks = (t) => {
+       let text = t.toLowerCase()
+        // if (text === "") {
+        //     fetch('http://localhost:4000/books')
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         let newData = data.filter((book) => book.username === localStorage.getItem("currentUser"))
+        //         this.setState({
+        //             displayBooks: newData
+        //         })
+        //     })
+        // }else {
+
+        fetch('http://localhost:4000/books')
+        .then(res => res.json())
+        .then(data => {
+            let newData = data.filter((book) => book.username === localStorage.getItem("currentUser"))
+            
+            // let lowerCasedBooks = newData.map(b => ({...b, author: b.author.toLowerCase(), title: b.title.toLowerCase()}))
+            let filteredBooks = newData.filter(b => (b.author.toLowerCase().includes(text) || b.title.toLowerCase().includes(text) || b.rating === parseInt(text, 10)))
+            this.setState({
+                displayBooks: filteredBooks
+            })
+        })
+    // }
+        //console.log(this.state.displayBooks)
+
+    }
+
     render() {
         return(
             <div className="container">
@@ -146,8 +184,9 @@ class MyBooksPageContainer extends React.Component {
                 onAddBook={this.addBook}
                 onClose={this.closePopup}
                 /> : null}
-                <MyBooksFilter/>
+                
                 <MyBooksContainer displayBooks={this.state.displayBooks} onDelete={this.deleteBook} onRate={this.rateBook}/>
+                <MyBooksFilter onSearchMyBooks={this.searchMyBooks}/>
             </div>
         ) 
     }

@@ -4,7 +4,7 @@ import './myBooksCard.css';
 
 
 class MyBooksCard extends Component {
-
+    
     constructor() {
         super()
         this.state = {
@@ -14,13 +14,14 @@ class MyBooksCard extends Component {
     }
 
     render() {
+        
         console.log(this.state.rating)
         const ratingStars = []
         for (let i = 1; i < 5; i++) {
             ratingStars.push(
             <button onClick={() => 
                 {this.props.onRate(this.props.book._id, i)
-                 this.setState({rating: i})} }>{this.props.book.rating < i ? <i className="far fa-star"> </i> : <i className="fas fa-star"></i>}</button>
+                 this.setState({rating: i})} }>{this.props.book.rating < i ? <i style={{color: "#ee6e73"}} className="far fa-star"> </i> : <i style={{color: "#ee6e73"}} className="fas fa-star"></i>}</button>
                  )
         }
         return(
@@ -41,10 +42,11 @@ class MyBooksCard extends Component {
                         </div>
                         <div className="card-reveal">
                             <span className="card-title grey-text text-darken-4">{this.props.book.title}<i className="fas fa-times" style={{float: "right"}}></i></span>
-                            <p>{this.props.book.author ? this.props.book.author : null}</p>
-                            <p>Current Page: {this.props.book.currentPage}</p>
-                            <p>Rating: {this.props.book.rating}</p>
+                            <h5>{this.props.book.author ? this.props.book.author : null}</h5>
+                            <h6>Current Page: {this.props.book.currentPage}</h6>
+                            
                             {ratingStars}
+
                         </div>
                     </div>
                 </div>

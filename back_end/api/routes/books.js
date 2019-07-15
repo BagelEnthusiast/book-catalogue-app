@@ -24,6 +24,14 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
+    //  Book.findOne({where: {title: req.body.title, author: req.body.author, username: req.body.username}}) 
+    //  .then(b => {console.log("jafoeijfpaewoifjaewpofijaewfpoij")})
+    // //  {
+    // //     console.log(Book.findOne({where: {title: req.body.title, author: req.body.author, username: req.body.username}}))
+    // //     res.status(201).json({})
+    // //     return
+    // // }
+
     const book = new Book({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,

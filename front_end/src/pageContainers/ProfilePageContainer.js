@@ -1,5 +1,5 @@
 import React from 'react';
-
+// import Chart from '../profilePage/Chart'
 
 class ProfilePageContainer extends React.Component {
     
@@ -10,7 +10,7 @@ class ProfilePageContainer extends React.Component {
         // }, 2000)
         return(
             <div className="container">
-                <h4 className="center">Profile</h4>
+                {/* <Chart/> */}
             </div>
         ) 
     }
